@@ -6,15 +6,19 @@ export default class Company extends Sequelize.Model {
       {
         name: {
           type: Sequelize.STRING(50),
+          allowNull: false,
         },
         nation: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
         region: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
         gen: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
       },
       {

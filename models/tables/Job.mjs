@@ -6,15 +6,19 @@ export default class Job extends Sequelize.Model {
       {
         duty: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
         overview: {
           type: Sequelize.STRING(300),
+          allowNull: false,
         },
         preferr: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
         grant: {
           type: Sequelize.STRING(30),
+          allowNull: false,
         },
       },
       {
