@@ -2,9 +2,9 @@
   "name": "wanted_pre_onboarding",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js ",
+  "main": "server.mjs ",
   "scripts": {
-    "start" : "npx nodemon server"
+    "start": "npx nodemon server.mjs"
   },
   "author": "lmy",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
     "nodemon": "^2.0.19"
   }
 }
