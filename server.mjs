@@ -3,11 +3,13 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import sequelizeInit from "./models/init.mjs";
 
+import job from "./routes/job.mjs";
+
 dotenv.config();
 
 const app = express();
 
-app.set("port", process.env.PORT || 8080);
+app.set("port", process.env.PORT || 5050);
 
 sequelizeInit();
 
@@ -15,9 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", (req, res) => {
-  res.send("welcome page");
-});
+app.use("/job", job);
 
 app.use((req, res, next) => {
   const error = new Error();

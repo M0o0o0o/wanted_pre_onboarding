@@ -4,13 +4,15 @@
   "description": "",
   "main": "server.mjs ",
   "scripts": {
-    "start": "npx nodemon server.mjs"
+    "start": "npx nodemon server.mjs",
+    "test": "mocha"
   },
   "author": "lmy",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-validator": "^6.14.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.3",
@@ -18,6 +20,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
-    "nodemon": "^2.0.19"
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.19",
+    "request": "^2.88.2"
   }
 }
