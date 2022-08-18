@@ -1,4 +1,3 @@
-// company : name, nation, region, gen
 import { faker } from "@faker-js/faker";
 
 faker.locale = "ko";
@@ -13,8 +12,8 @@ const tech = [
   "Java",
   "C++",
 ];
-const companies = ["원티드", "네이버", "카카오", "구글", "인프런"];
 
+const companies = ["원티드", "네이버", "카카오", "구글", "인프런"];
 const duties = ["백엔드 주니어 개발자", "백엔드 시니어 개발자"];
 
 export default async (db) => {
@@ -32,8 +31,9 @@ export default async (db) => {
       await db.Job.create({
         duty: i % 2 == 0 ? duties[0] : duties[1],
         overview: faker.lorem.paragraph(),
-        perferr: tech[i],
+        preferr: tech[i],
         grant: faker.finance.amount(100000, 1000000, 0, "", true),
+        company_id: companies.id,
       });
     }
   }
