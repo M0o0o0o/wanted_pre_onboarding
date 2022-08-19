@@ -35,7 +35,7 @@ export default class Job extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Job.belongsTo(db.Job, {
+    db.Job.belongsTo(db.Company, {
       foreignKey: "company_id",
       sourceKey: "id",
       onDelete: "CASCADE",
