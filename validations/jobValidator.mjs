@@ -2,6 +2,19 @@ import { body, param } from "express-validator";
 import validator from "./validator.mjs";
 import errCodes from "../errorMessages.mjs";
 
+function getJobValidator() {
+  return [
+    param("id")
+      .trim()
+      .notEmpty()
+      .bail()
+      .withMessage(errCodes.REQUIRED)
+      .isInt()
+      .withMessage(errCodes.INPUTERROR),
+    validator,
+  ];
+}
+
 function enrollJobValidator() {
   return [
     body("company")
@@ -75,4 +88,10 @@ function deleteJobValidator() {
     validator,
   ];
 }
-export { enrollJobValidator, changeJobValidator, deleteJobValidator };
+
+export {
+  enrollJobValidator,
+  changeJobValidator,
+  deleteJobValidator,
+  getJobValidator,
+};

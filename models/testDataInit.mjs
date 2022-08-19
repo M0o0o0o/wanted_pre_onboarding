@@ -33,7 +33,7 @@ export default async (db) => {
         overview: faker.lorem.paragraph(),
         preferr: tech[i],
         grant: faker.finance.amount(100000, 1000000, 0, "", true),
-        company_id: companies.id,
+        company_id: company.id,
       });
     }
   }

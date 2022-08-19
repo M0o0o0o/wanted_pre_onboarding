@@ -3,13 +3,33 @@ import {
   enrollJobValidator,
   changeJobValidator,
   deleteJobValidator,
+  getJobValidator,
 } from "../validations/jobValidator.mjs";
 import jobDto from "../dto/jobDto.mjs";
 import { NoExistCompany, NoExistJob } from "../userError.mjs";
 import { jobRepository, companyRepository } from "../repository/repository.mjs";
 import errorDto from "../dto/errorDto.mjs";
 import jobDtoWithoutCompany from "../dto/jobDtoWithoutCompany.mjs";
+import jobDtowithOtherjobs from "../dto/jobDtowithOtherjobs.mjs";
+
 const router = express.Router();
+
+router.get("/:id", getJobValidator(), async (req, res, next) => {
+  try {
+    const job = await jobRepository.getJob(req.params.id);
+    const otherjobs = await jobRepository.getCompanyOtherJobs(
+      job.company_id,
+      job.id
+    );
+
+    return res.status(200).json(jobDtowithOtherjobs(job, otherjobs));
+  } catch (e) {
+    if (e instanceof NoExistCompany) {
+      return res.status(400).json(errorDto(e.name, e.message));
+    }
+    return res.status(400).json(errorDto("", e.message));
+  }
+});
 
 router.post("/", enrollJobValidator(), async (req, res, next) => {
   try {
