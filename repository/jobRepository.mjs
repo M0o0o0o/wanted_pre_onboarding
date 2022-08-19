@@ -7,6 +7,7 @@ class JobRepository {
   async addJob(job) {}
   async findJob(id) {}
   async changeJob(job, newJob) {}
+  async deleteJob(id) {}
 }
 
 export class JobRepositoryV1 extends JobRepository {
@@ -25,14 +26,12 @@ export class JobRepositoryV1 extends JobRepository {
 
   async findJob(id) {
     try {
-      console.log(id);
       const job = await Job.findOne({ where: { id } });
       if (job === null) {
         throw new NoExistJob("id", errorMessages.NOJOB);
       }
       return job;
     } catch (error) {
-      console.log(error);
       if (error instanceof NoExistJob) {
         throw error;
       }
@@ -50,6 +49,16 @@ export class JobRepositoryV1 extends JobRepository {
       });
       job.save();
     } catch (error) {
+      throw new Error("다시 시도해주세요.");
+    }
+  }
+
+  async deleteJob(id) {
+    try {
+      console.log(id);
+      await Job.destroy({ where: { id } });
+    } catch (error) {
+      console.log(error);
       throw new Error("다시 시도해주세요.");
     }
   }
