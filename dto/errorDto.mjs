@@ -1,10 +1,10 @@
 export default (field, message) => {
-  const result = {};
+  const result = { error: {} };
   if (field !== "") {
-    result.field = field;
+    result.error.field = field;
   }
   if (message !== undefined) {
-    result.message = message;
+    result.error.message = message;
   }
   return result;
 };
