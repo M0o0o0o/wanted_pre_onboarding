@@ -1,5 +1,4 @@
 export default (errors) => {
-  console.log(errors);
   const result = { errors: [] };
   errors.array().forEach((error) => {
     result.errors.push({
