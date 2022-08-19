@@ -62,4 +62,17 @@ function changeJobValidator() {
     validator,
   ];
 }
-export { enrollJobValidator, changeJobValidator };
+
+function deleteJobValidator() {
+  return [
+    param("id")
+      .trim()
+      .notEmpty()
+      .bail()
+      .withMessage(errCodes.REQUIRED)
+      .isInt()
+      .withMessage(errCodes.INPUTERROR),
+    validator,
+  ];
+}
+export { enrollJobValidator, changeJobValidator, deleteJobValidator };
