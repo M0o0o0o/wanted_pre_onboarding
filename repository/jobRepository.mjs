@@ -12,6 +12,7 @@ class JobRepository {
   async changeJob(job, newJob) {}
   async deleteJob(id) {}
   async getCompanyOtherJobs(company_id, job_id) {}
+  async getJobs(data) {}
 }
 
 export class JobRepositoryV1 extends JobRepository {
@@ -37,6 +38,34 @@ export class JobRepositoryV1 extends JobRepository {
       if (error instanceof NoExistJob) {
         throw error;
       }
+      throw new Error("다시 시도해 주세요.");
+    }
+  }
+
+  async getJobs(data) {
+    try {
+      const jobs = await Job.findAndCountAll({
+        include: [
+          {
+            model: Company,
+            required: true,
+            where: {
+              name: { [Op.like]: data.company.name },
+              nation: { [Op.like]: data.company.nation },
+              region: { [Op.like]: data.company.region },
+            },
+          },
+        ],
+        where: {
+          duty: { [Op.like]: data.job.duty },
+          preferr: { [Op.like]: data.job.preferr },
+        },
+        order: [["createdAt", "DESC"]],
+        limit: data.cnt,
+        offset: (data.page - 1) * data.cnt,
+      });
+      return jobs;
+    } catch (error) {
       throw new Error("다시 시도해 주세요.");
     }
   }
