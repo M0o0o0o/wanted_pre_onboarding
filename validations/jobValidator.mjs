@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import validator from "./validator.mjs";
 import errCodes from "../errorMessages.mjs";
 
@@ -10,6 +10,37 @@ function getJobValidator() {
       .bail()
       .withMessage(errCodes.REQUIRED)
       .isInt()
+      .withMessage(errCodes.INPUTERROR),
+    validator,
+  ];
+}
+
+function getJobsValidator() {
+  return [
+    query("company")
+      .optional()
+      .isLength({ min: 1, max: 50 })
+      .withMessage(errCodes.INPUTERROR),
+    query("duty")
+      .optional()
+      .isLength({ max: 30 })
+      .withMessage(errCodes.INPUTERROR),
+    query("preferr")
+      .optional()
+      .isLength({ max: 30 })
+      .withMessage(errCodes.INPUTERROR),
+    query("nation")
+      .optional()
+      .isLength({ max: 30 })
+      .withMessage(errCodes.INPUTERROR),
+    query("region")
+      .optional()
+      .isLength({ max: 30 })
+      .withMessage(errCodes.INPUTERROR),
+    query("page").optional().isInt().withMessage(errCodes.INPUTERROR),
+    query("cnt")
+      .optional()
+      .isInt({ min: 10, max: 30 })
       .withMessage(errCodes.INPUTERROR),
     validator,
   ];
@@ -94,4 +125,5 @@ export {
   changeJobValidator,
   deleteJobValidator,
   getJobValidator,
+  getJobsValidator,
 };
