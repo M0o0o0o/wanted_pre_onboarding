@@ -38,7 +38,7 @@ export class JobRepositoryV1 extends JobRepository {
       if (error instanceof NoExistJob) {
         throw error;
       }
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -66,7 +66,7 @@ export class JobRepositoryV1 extends JobRepository {
       });
       return jobs;
     } catch (error) {
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -85,7 +85,7 @@ export class JobRepositoryV1 extends JobRepository {
       });
       return jobs;
     } catch (e) {
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -94,7 +94,7 @@ export class JobRepositoryV1 extends JobRepository {
       const createdJob = await Job.create(job);
       return createdJob;
     } catch (error) {
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -109,7 +109,7 @@ export class JobRepositoryV1 extends JobRepository {
       if (error instanceof NoExistJob) {
         throw error;
       }
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -123,7 +123,7 @@ export class JobRepositoryV1 extends JobRepository {
       });
       job.save();
     } catch (error) {
-      throw new Error("다시 시도해주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 
@@ -131,7 +131,7 @@ export class JobRepositoryV1 extends JobRepository {
     try {
       await Job.destroy({ where: { id } });
     } catch (error) {
-      throw new Error("다시 시도해주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 }
