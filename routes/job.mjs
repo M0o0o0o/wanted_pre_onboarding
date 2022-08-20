@@ -47,7 +47,7 @@ router.post("/", enrollJobValidator(), async (req, res, next) => {
   try {
     const company = await companyRepository.findCompany(req.body.company);
     const newJob = await jobRepository.addJob(jobDto(req.body));
-    res.location(`localhost:${req.app.get("port")}/job/${newJob.id}`);
+    res.location(`/job/${newJob.id}`);
     return res.status(201).end();
   } catch (e) {
     if (e instanceof NoExistCompany) {
