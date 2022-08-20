@@ -26,15 +26,16 @@ export default async (db) => {
     });
 
     await db.User.create({});
-
-    for (let i = 0; i < 8; i++) {
-      await db.Job.create({
-        duty: i % 2 == 0 ? duties[0] : duties[1],
-        overview: faker.lorem.paragraph(),
-        preferr: tech[i],
-        grant: faker.finance.amount(100000, 1000000, 0, "", true),
-        company_id: company.id,
-      });
+    for (let k = 0; k < 5; k++) {
+      for (let i = 0; i < 8; i++) {
+        await db.Job.create({
+          duty: i % 2 == 0 ? duties[0] : duties[1],
+          overview: faker.lorem.paragraph(),
+          preferr: tech[i],
+          grant: faker.finance.amount(100000, 1000000, 0, "", true),
+          company_id: company.id,
+        });
+      }
     }
   }
 };

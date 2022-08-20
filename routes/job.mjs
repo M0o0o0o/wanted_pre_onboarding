@@ -4,6 +4,7 @@ import {
   changeJobValidator,
   deleteJobValidator,
   getJobValidator,
+  getJobsValidator,
 } from "../validations/jobValidator.mjs";
 import jobDto from "../dto/jobDto.mjs";
 import { NoExistCompany, NoExistJob } from "../userError.mjs";
@@ -11,6 +12,8 @@ import { jobRepository, companyRepository } from "../repository/repository.mjs";
 import errorDto from "../dto/errorDto.mjs";
 import jobDtoWithoutCompany from "../dto/jobDtoWithoutCompany.mjs";
 import jobDtowithOtherjobs from "../dto/jobDtowithOtherjobs.mjs";
+import jobsDto from "../dto/jobsDtoForDB.mjs";
+import jobsDtoForResult from "../dto/jobsDtoForResult.mjs";
 
 const router = express.Router();
 
@@ -27,6 +30,15 @@ router.get("/:id", getJobValidator(), async (req, res, next) => {
     if (e instanceof NoExistCompany) {
       return res.status(400).json(errorDto(e.name, e.message));
     }
+    return res.status(400).json(errorDto("", e.message));
+  }
+});
+
+router.get("/", getJobsValidator(), async (req, res, next) => {
+  try {
+    const jobs = await jobRepository.getJobs(jobsDto(req.query));
+    res.status(200).json(jobsDtoForResult(jobs));
+  } catch (e) {
     return res.status(400).json(errorDto("", e.message));
   }
 });
