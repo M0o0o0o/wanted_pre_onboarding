@@ -14,6 +14,12 @@ export default class Apply extends Sequelize.Model {
         underscored: false,
         charset: "utf8",
         collate: "utf8_general_ci",
+        indexes: [
+          {
+            unique: true,
+            fields: ["user_id", "job_id"],
+          },
+        ],
       }
     );
   }

@@ -28,7 +28,7 @@ export class CompanyRepositoryV1 extends CompanyRepository {
       if (e instanceof NoExistCompany) {
         throw e;
       }
-      throw new Error("다시 시도해 주세요.");
+      throw new Error(errorMessages.GENENAL);
     }
   }
 }

@@ -4,6 +4,7 @@ import morgan from "morgan";
 import sequelizeInit from "./models/init.mjs";
 
 import job from "./routes/job.mjs";
+import apply from "./routes/apply.mjs";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/job", job);
+app.use("/apply", apply);
 
 app.use((req, res, next) => {
   const error = new Error();
