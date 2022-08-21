@@ -1,6 +1,7 @@
 import { body, param, query } from "express-validator";
 import validator from "./validator.mjs";
 import errCodes from "../errorMessages.mjs";
+import errorMessages from "../errorMessages.mjs";
 
 function getJobValidator() {
   return [
@@ -90,18 +91,29 @@ function enrollJobValidator() {
 // notEmpty 가 필요 없다 없으면 기존 걸로 덮어씌운다.
 function changeJobValidator() {
   return [
-    param("id").trim().isInt().withMessage(errCodes.INPUTERROR),
-    body("duty").isLength({ max: 30 }).withMessage(errCodes.INPUTERROR),
+    param("id")
+      .notEmpty()
+      .bail()
+      .withMessage(errorMessages.REQUIRED)
+      .trim()
+      .isInt()
+      .withMessage(errCodes.INPUTERROR),
+    body("duty")
+      .optional()
+      .isLength({ min: 1, max: 30 })
+      .withMessage(errCodes.INPUTERROR),
     body("overview")
-      .isLength({ min: 0, max: 300 })
+      .optional()
+      .isLength({ min: 1, max: 300 })
       .withMessage(errCodes.INPUTERROR),
     body("preferr").isLength({ max: 30 }).withMessage(errCodes.INPUTERROR),
     body("grant")
+      .optional()
       .trim()
       .isInt()
       .bail()
       .withMessage(errCodes.INPUTERROR)
-      .isLength({ max: 30 })
+      .isLength({ min: 1, max: 30 })
       .withMessage(errCodes.INPUTERROR),
     validator,
   ];

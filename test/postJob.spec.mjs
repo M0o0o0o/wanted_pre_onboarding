@@ -6,7 +6,7 @@ development 환경에서는 새로운 DB를 구성하고
 회사와 유저 데이터를 5개씩 생성한다. 
 */
 
-describe("POST localhost:8080/job - 채용 공고 등록 테스트", () => {
+describe("POST /job - 채용 공고 등록 테스트", () => {
   it("정상 등록 테스트 (1번 회사)", (done) => {
     const options = {
       uri: "http://localhost:5050/job",
@@ -61,7 +61,7 @@ describe("POST localhost:8080/job - 채용 공고 등록 테스트", () => {
     request.post(options, (err, res, body) => {
       expect(res.statusCode).to.equal(400);
       expect(body).to.deep.include({
-        errors: [{ field: "company", message: "등록되지 않은 회사입니다." }],
+        error: { field: "company", message: "등록되지 않은 회사입니다." },
       });
       done();
     });
